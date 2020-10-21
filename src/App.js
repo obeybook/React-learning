@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
-import MyName from './practice/practice1.js';
+import State from './practice/practice2.js';
 
 class App extends Component {
   render() {
     return (
-      <MyName />
+      <State />
     );
   }
 }
