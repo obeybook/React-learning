@@ -6,11 +6,10 @@ class State extends Component {
 	}
 
 	plus = () => {
-		this.setState(
-			(state) => ({
-				number: state.number + 1
-			})
-		)
+		let { number } = this.state;
+		this.setState({
+			number: number + 1,
+		})
 	};
 
 	minus = () => {
