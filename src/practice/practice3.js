@@ -3,13 +3,13 @@ import '../index.css';
 
 class Cycle extends Component {
     state = {
-        list: 1,
+        list: [1],
     }
 
     plus = () => {
         let { list } = this.state;
         this.setState({
-            list: list + 1,
+            list: list.concat(),
         });
         console.log('plus Fnc : ', this.state.list);
         console.log('=====================================================');
