@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
+import '../index.css';
 
 class Cycle3 extends Component {
+    id = 2;
+
     state = {
         number : [1]
     }
@@ -10,33 +13,39 @@ class Cycle3 extends Component {
         console.log('constructor');
     }
 
-    componentWillMount() {
-        console.log('componentWillMount');
+    // componentWillMount() {
+    //     console.log('componentWillMount');
+    // }
+
+    // componentDidMount() {
+    //     console.log('componentDidMount');
+    // }
+
+    // shouldComponentUpdate(nextProps, nextState) {
+    //     console.log('*----------------------------------*');
+    //     console.log('shouldComponentUpdate', nextState);
+    //     if (nextState.number % 5 === 0 ) return false;
+    //     return true;
+    // }
+
+    // componentWillUpdate (nextProps, nextState) {
+    //     console.log('componentWillUpdate', nextState);
+    // }
+
+    getSnapshotBeforeUpdate(prevProps, prevState) {
+        let { scrollTop, scrollHeight, offsetHeight } = this.list;
+        console.log(scrollTop);
+        scrollTop = scrollHeight;
+        console.log(scrollTop);
     }
 
-    componentDidMount() {
-        console.log('componentDidMount');
-    }
-
-    shouldComponentUpdate(nextProps, nextState) {
-        console.log('*----------------------------------*');
-        console.log('shouldComponentUpdate', nextState);
-        if (nextState.number % 5 === 0 ) return false;
-        return true;
-    }
-
-    componentWillUpdate (nextProps, nextState) {
-        console.log('componentWillUpdate', nextState);
-    }
-
-    componentDidUpdate (prevProps, prevState) {
-        console.log('componentDidUpdat', prevState);
+    componentDidUpdate (prevProps, prevState, snapshot) {
     }
 
     plus = () => {
         const { number } = this.state;
         this.setState({
-            number: number.concat(1),
+            number: [this.id++, ...number],
         })
     }
 
@@ -50,13 +59,15 @@ class Cycle3 extends Component {
     render() {
         const { number } = this.state;
         const arr = number.map((item) => (
-            <div>{item}</div>
+            <div className="e">{item}</div>
         ));
 
         return (
             <>
+                <div className="box">
+                    <div ref={(ref) => {this.list = ref;}}>{arr}</div>
+                </div>
                 {/* <div>값 : {this.state.number}</div> */}
-                {arr}
                 <button onClick={this.plus}>+</button>
                 {/* <button onClick={this.minus}>-</button> */}
             </>
