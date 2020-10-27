@@ -10,7 +10,6 @@ class Cycle3 extends Component {
 
     constructor(props){
         super(props);
-        console.log('constructor');
     }
 
     // componentWillMount() {
@@ -33,13 +32,18 @@ class Cycle3 extends Component {
     // }
 
     getSnapshotBeforeUpdate(prevProps, prevState) {
-        let { scrollTop, scrollHeight, offsetHeight } = this.list;
-        console.log(scrollTop);
-        scrollTop = scrollHeight;
-        console.log(scrollTop);
+        const { scrollTop, scrollHeight } = this.list;
+        return {
+            scrollTop,
+            scrollHeight,
+        };
     }
 
     componentDidUpdate (prevProps, prevState, snapshot) {
+        const { scrollHeight } = this.list;
+        const diff = this.list.scrollHeight - snapshot.scrollHeight;
+        console.log(snapshot.scrollHeight, this.list.scrollHeight);
+        this.list.scrollTop += diff;
     }
 
     plus = () => {
@@ -61,11 +65,12 @@ class Cycle3 extends Component {
         const arr = number.map((item) => (
             <div className="e">{item}</div>
         ));
-
         return (
             <>
-                <div className="box">
-                    <div ref={(ref) => {this.list = ref;}}>{arr}</div>
+                <div>
+                    <div ref={(ref) => {this.list = ref;}} className="box">
+                        {arr}
+                    </div>
                 </div>
                 {/* <div>값 : {this.state.number}</div> */}
                 <button onClick={this.plus}>+</button>
