@@ -10,7 +10,7 @@ class App extends Component {
               name: 'oh',
               number: '01041088903',
           }
-      ]
+      ] 
   }
 
   setInfo = (name, number) => {
