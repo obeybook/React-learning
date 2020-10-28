@@ -1,10 +1,14 @@
 import React, { Component } from 'react';
-import Cycle3 from './practice/practice4-1.js';
+import InputPractice from './practice/practice5.js';
 
 class App extends Component {
+  infoOut = (name, num) => {
+    console.log(name, num);
+  }
+
   render() {
     return (
-      <Cycle3 />
+      <InputPractice onCreate={this.infoOut}/>
     );
   }
 }

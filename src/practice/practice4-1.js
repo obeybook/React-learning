@@ -5,7 +5,8 @@ class Cycle3 extends Component {
     id = 2;
 
     state = {
-        number : [1]
+        number : [1],
+        listRef : 0,
     }
 
     constructor(props){
@@ -32,24 +33,33 @@ class Cycle3 extends Component {
     // }
 
     getSnapshotBeforeUpdate(prevProps, prevState) {
-        const { scrollTop, scrollHeight } = this.list;
-        return {
-            scrollTop,
-            scrollHeight,
-        };
+        // const { scrollTop, scrollHeight } = this.list;
+        // return {
+        //     scrollTop,
+        //     scrollHeight,
+        // };
     }
 
     componentDidUpdate (prevProps, prevState, snapshot) {
-        const { scrollHeight } = this.list;
-        const diff = this.list.scrollHeight - snapshot.scrollHeight;
-        console.log(snapshot.scrollHeight, this.list.scrollHeight);
-        this.list.scrollTop += diff;
+        // const { scrollHeight } = this.list;
+        // const diff = this.list.scrollHeight - snapshot.scrollHeight;
+        // console.log(snapshot.scrollHeight, this.list.scrollHeight);
+        // this.list.scrollTop += diff;
+        const { scrollTop, scrollHeight } = this.state.listRef;
+        const diff = scrollHeight - prevState.listRef.scrollHeight;
+        this.state.scrollTop = diff;
     }
 
     plus = () => {
         const { number } = this.state;
         this.setState({
             number: [this.id++, ...number],
+        })
+    }
+
+    set = (r) => {
+        this.setState({
+            listRef: r,
         })
     }
 
@@ -68,7 +78,7 @@ class Cycle3 extends Component {
         return (
             <>
                 <div>
-                    <div ref={(ref) => {this.list = ref;}} className="box">
+                    <div ref={(ref) => {this.set(ref);}} className="box">
                         {arr}
                     </div>
                 </div>
