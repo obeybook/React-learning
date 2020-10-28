@@ -1,14 +1,32 @@
 import React, { Component } from 'react';
-import InputPractice from './practice/practice5.js';
+import Form from './practice/form.js';
+import List from './practice/list.js';
+import './index.css';
 
 class App extends Component {
-  infoOut = (name, num) => {
-    console.log(name, num);
+  state = {
+      list: [
+          {
+              name: 'oh',
+              number: '01041088903',
+          }
+      ]
+  }
+
+  setInfo = (name, number) => {
+    const { list } = this.state;
+
+    this.setState({
+      list: list.concat({ name, number })
+    })
   }
 
   render() {
     return (
-      <InputPractice onCreate={this.infoOut}/>
+      <>
+        <Form onCreate={this.setInfo}/>
+        <List data={this.state.list}/>
+      </>
     );
   }
 }
