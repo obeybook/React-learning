@@ -4,11 +4,14 @@ import List from './practice/list.js';
 import './index.css';
 
 class App extends Component {
+  id = 2;
   state = {
       list: [
           {
+              id: 1,
               name: 'oh',
               number: '01041088903',
+              updating: false,
           }
       ] 
   }
@@ -17,7 +20,26 @@ class App extends Component {
     const { list } = this.state;
 
     this.setState({
-      list: list.concat({ name, number })
+      list: list.concat({ id: this.id++, name, number })
+    })
+  }
+
+  remove = (id) => {
+    const { list } = this.state;
+
+    this.setState({
+      list: list.filter(item => item.id !== id)
+    })
+  }
+
+  update = (id) => {
+    const { list } = this.state;
+    this.setState({
+      list: list.map(
+          item => item.id === id
+            ? { ...item, updating: true }
+            : { ...item }
+        )
     })
   }
 
@@ -25,7 +47,7 @@ class App extends Component {
     return (
       <>
         <Form onCreate={this.setInfo}/>
-        <List data={this.state.list}/>
+        <List onDelete={this.remove} onUpdate={this.update} data={this.state.list} />
       </>
     );
   }
