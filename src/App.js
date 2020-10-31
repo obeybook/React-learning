@@ -43,11 +43,15 @@ class App extends Component {
     })
   }
 
+  edit = () => {
+    
+  }
+
   render() {
     return (
       <>
-        <Form onCreate={this.setInfo}/>
-        <List onDelete={this.remove} onUpdate={this.update} data={this.state.list} />
+        <Form onCreate={this.setInfo} />
+        <List onDelete={this.remove} onUpdate={this.update} onEdit={this.edit} data={this.state.list} />
       </>
     );
   }

@@ -7,6 +7,7 @@ class List extends Component {
     }
 
     state = {
+        data: [],
         name: '',
         number: '',
     }
@@ -17,7 +18,18 @@ class List extends Component {
     }
 
     update = (id) => {
-        const { onUpdate } = this.props;
+        const { onUpdate, data } = this.props;
+
+        console.log(data);
+
+        this.setState({
+          data: data.map(
+              item => item.id === id
+                ? { name: item.name, number: item.number, }
+                : { ...item }
+            )
+        })
+
         onUpdate(id);
     }
 
