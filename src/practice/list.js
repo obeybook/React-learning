@@ -7,7 +7,7 @@ class List extends Component {
     }
 
     state = {
-        data: [],
+        data2: [],
         name: '',
         number: '',
     }
@@ -19,16 +19,18 @@ class List extends Component {
 
     update = (id) => {
         const { onUpdate, data } = this.props;
+        const { data2 } = this.state;
 
-        console.log(data);
+        console.log('b', data2);
 
-        this.setState({
-          data: data.map(
-              item => item.id === id
-                ? { name: item.name, number: item.number, }
-                : { ...item }
-            )
-        })
+        // this.setState({
+        //   data2: data.map(
+        //       item => item.id === id
+        //         ? { ...item, name: item.name, number: item.number, }
+        //         : { ...item }
+        //     )
+        // })
+        // console.log('a', data2);
 
         onUpdate(id);
     }
@@ -39,15 +41,30 @@ class List extends Component {
         })
     }
 
+    // componentDidUpdate(prevProps, prevState) {
+    //     console.log(prevProps)
+    //     console.log(prevState)
+    //     const { data } = prevProps;
+    //     const { data2 } = this.state;
+
+    //     this.setState({
+    //         data2: data,
+    //       })
+
+    //     console.log('c', data2);
+    // }
+
     render() {
         const { data } = this.props;
+        const { data2 } = this.state;
+        console.log('r', data2);
         const plist = data.map((items) => (
             <div className="box">
                 { items.updating
                     ? (
                         <>
-                            <input type="text" name="name" onChange={this.inputChange} value={items.name} />
-                            <input type="text" name="number" onChange={this.inputChange} value={items.number} />
+                            <input type="text" name="name" onChange={this.inputChange} value={data2.name} />
+                            <input type="text" name="number" onChange={this.inputChange} value={data2.number} />
                         </>
                     )
                     : (

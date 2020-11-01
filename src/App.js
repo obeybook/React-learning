@@ -1,57 +1,31 @@
 import React, { Component } from 'react';
-import Form from './practice/form.js';
-import List from './practice/list.js';
+import TodoForm from './todo/todoForm.js';
+import TodoInfo from './todo/todoInfo.js';
 import './index.css';
 
 class App extends Component {
-  id = 2;
   state = {
-      list: [
-          {
-              id: 1,
-              name: 'oh',
-              number: '01041088903',
-              updating: false,
-          }
-      ] 
+      list: {
+          id: 1,
+          name: 'yong',
+          phone: '01041088903',
+          updating: false,
+      }
   }
 
-  setInfo = (name, number) => {
+  listInsert = (data) => {
     const { list } = this.state;
 
     this.setState({
-      list: list.concat({ id: this.id++, name, number })
+      list: list.concat.data,
     })
-  }
-
-  remove = (id) => {
-    const { list } = this.state;
-
-    this.setState({
-      list: list.filter(item => item.id !== id)
-    })
-  }
-
-  update = (id) => {
-    const { list } = this.state;
-    this.setState({
-      list: list.map(
-          item => item.id === id
-            ? { ...item, updating: true }
-            : { ...item }
-        )
-    })
-  }
-
-  edit = () => {
-    
   }
 
   render() {
     return (
       <>
-        <Form onCreate={this.setInfo} />
-        <List onDelete={this.remove} onUpdate={this.update} onEdit={this.edit} data={this.state.list} />
+        <TodoForm insert={this.listInsert}/>
+        <TodoInfo />
       </>
     );
   }
