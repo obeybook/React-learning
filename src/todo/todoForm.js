@@ -8,7 +8,7 @@ class TodoForm extends Component {
 
     onchange = (event) => {
         const { target } = event;
-        console.log(event);
+
         this.setState({
             [target.name]: target.value
         })
@@ -18,6 +18,11 @@ class TodoForm extends Component {
         const { insert } = this.props;
 
         insert(this.state);
+
+        this.setState({
+          name: '',
+          number: '',
+        })
     }
 
     render() {

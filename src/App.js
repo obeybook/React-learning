@@ -4,20 +4,29 @@ import TodoInfo from './todo/todoInfo.js';
 import './index.css';
 
 class App extends Component {
+  id = 1;
+
   state = {
-      list: {
-          id: 1,
-          name: 'yong',
-          phone: '01041088903',
-          updating: false,
-      }
+      list: []
   }
 
   listInsert = (data) => {
     const { list } = this.state;
 
     this.setState({
-      list: list.concat.data,
+      list: list.concat({id: this.id++, ...data}),
+    })
+
+    this.id++;
+  }
+
+  listDelete = (id) => {
+    const { list } = this.state;
+
+    this.setState({
+      list: list.filter((item) => (
+        item.id !== id
+      )),
     })
   }
 
@@ -25,7 +34,7 @@ class App extends Component {
     return (
       <>
         <TodoForm insert={this.listInsert}/>
-        <TodoInfo />
+        <TodoInfo data={this.state.list} onDelete={this.listDelete} />
       </>
     );
   }

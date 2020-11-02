@@ -1,19 +1,21 @@
-
-.wrap {
-  width: 600px;
-  height: 300px;
+.wrap{
+  margin-top: 10px;
   border: 1px solid black;
-  overflow: auto;
+  padding: 1rem;
+  width: 500px;
 }
 
 .box{
-  width: 90%;
   border: 1px solid black;
-  text-align: left;;
-  margin: 10px auto;
-  
+  padding: 0.4rem;
+  width: auto;
+  margin-bottom: 10px;
+  display: flex;
 }
 
-.box p{
-  margin: 0;
+.flex1{
+  flex: 3;
+}
+.flex2{
+  flex: 1;
 }
