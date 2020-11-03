@@ -14,7 +14,7 @@ class App extends Component {
     const { list } = this.state;
 
     this.setState({
-      list: list.concat({id: this.id++, ...data}),
+      list: list.concat({id: this.id++, updating: false, ...data}),
     })
 
     this.id++;
@@ -30,11 +30,49 @@ class App extends Component {
     })
   }
 
+  listUpdate = (id) => {
+    const {list} = this.state;
+
+    this.setState({
+      list: list.map((item) => (
+        item.id === id
+        ? { ...item, updating: true }
+        : { ...item }
+      )),
+    })
+  }
+
+  onSubmit = (id, data) => {
+    const {list} = this.state;
+    const { name, number } = data;
+
+    this.setState({
+      list: list.map((item) => (
+        item.id === id
+        ? { ...item, name: name, number: number, updating: false }
+        : { ...item }
+      )),
+    })
+  }
+
+  onChange = (data) => {
+    const { id, name, number } = data;
+    const {list} = this.state;
+
+    this.setState({
+      list: list.map((item) => (
+        item.id === id
+        ? { ...item, name: name, number: number }
+        : { ...item }
+      )),
+    })
+  }
+
   render() {
     return (
       <>
         <TodoForm insert={this.listInsert}/>
-        <TodoInfo data={this.state.list} onDelete={this.listDelete} />
+        <TodoInfo data={this.state.list} onDelete={this.listDelete} onUpdate={this.listUpdate} onChange={this.onChange} onSubmit={this.onSubmit} />
       </>
     );
   }
