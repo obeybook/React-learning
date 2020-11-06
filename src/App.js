@@ -10,7 +10,7 @@ class App extends Component {
   }
 
   componentDidMount() {
-    fetch('http://localhost:3002/api')
+    fetch('http://localhost:3002/api/a')
       .then( res => res.json() )
       .then( data => this.setState({
           greeting: data.greeting
