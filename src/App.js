@@ -1,27 +1,18 @@
 import React, { Component } from 'react';
+import { Route } from 'react-router-dom';
+import { BrowserRouter } from 'react-router-dom';
+import Client1 from '../src/io/client1';
+import Client2 from '../src/io/client2';
 import './index.css';
 
 class App extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      greeting: null
-    }
-  }
-
-  componentDidMount() {
-    fetch('http://localhost:3002/api/a')
-      .then( res => res.json() )
-      .then( data => this.setState({
-          greeting: data.greeting
-        }) 
-      );
-  }
-
   render() {
     return (
       <>
-        <div>{this.state.greeting ? <h1>{this.state.greeting}</h1>:<h1>loading...</h1>}</div>
+        <BrowserRouter>
+          <Route path='/client1' Component={Client1}/>
+          <Route path='/client2' Component={Client2}/>
+        </BrowserRouter>
       </>
     );
   }
