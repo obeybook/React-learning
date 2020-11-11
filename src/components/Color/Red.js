@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import io from 'socket.io-client';
 
-const socket = io('http://localhost:3003/red');
+const socket = io('http://175.211.13.196:3000');
 
 class Red extends Component {
     constructor(props) {
@@ -13,13 +13,13 @@ class Red extends Component {
     }
 
     componentDidMount() {
-        socket.emit('roomjoin', this.state.userId);
-        fetch('http://localhost:3003/red')
-          .then( res => res.json() )
-          .then( data => this.setState({
-                color: data.color
-            }) 
-          )
+        // socket.emit('emit', this.state.userId);
+        // fetch('http://localhost:3003/red')
+        //   .then( res => res.json() )
+        //   .then( data => this.setState({
+        //         color: data.color
+        //     }) 
+          // )
     }
 
     onClick = (e) => {
