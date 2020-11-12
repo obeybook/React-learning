@@ -9,11 +9,12 @@ const green = require('./routes/green');
 const http = require('http').createServer(app);
 const io = require('socket.io')(http);
 
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 3001;
 
 app.use(bodyParser.json());
 
 app.use(cors());
+app.use('/red', red);
 
 io.on('connection' , (socket) => {
     console.log("접속 완료");
@@ -23,8 +24,9 @@ io.on('connection' , (socket) => {
     //     socket.join(userId);
     // });
 
-    socket.on('alert', (toUserId) => {
-        io.to(toUserId).emit('sam', toUserId);
+    socket.on('alert', (msg) => {
+        console.log(msg);
+        io.emit('alert', msg);
     })
 })
 

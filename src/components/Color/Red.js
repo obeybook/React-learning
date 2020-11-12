@@ -1,25 +1,30 @@
 import React, { Component } from 'react';
 import io from 'socket.io-client';
 
-const socket = io('http://175.211.13.196:3000');
+const socket = io.connect('http://175.211.13.196:3001');
 
 class Red extends Component {
     constructor(props) {
       super(props);
       this.state = {
-        color: null,
+        message: null,
         userId: 'yong',
+        color: null,
       }
     }
 
     componentDidMount() {
-        // socket.emit('emit', this.state.userId);
-        // fetch('http://localhost:3003/red')
-        //   .then( res => res.json() )
-        //   .then( data => this.setState({
-        //         color: data.color
-        //     }) 
-          // )
+        fetch('http://175.211.13.196:3001/red')
+            .then(res => res.json())
+            .then(data => {
+                    this.setState({
+                    color: data.color,
+                    });
+                    
+                    
+                }
+            )
+            .then( () => socket.on('alert', this.state.userId))
     }
 
     onClick = (e) => {
@@ -31,6 +36,7 @@ class Red extends Component {
         return (
             <>
                 <div>{this.state.color}</div>
+                <div>{this.state.message}</div>
                 <button onClick={this.onClick}>send Alert</button>
             </>
         )

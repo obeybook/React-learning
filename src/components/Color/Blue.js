@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import io from 'socket.io-client';
 
-const socket = io('http://175.211.13.196:3000');
+const socket = io('http://175.211.13.196:3001');
 
 class Blue extends Component {
     constructor(props) {

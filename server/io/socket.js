@@ -9,13 +9,14 @@ app.use(bodyParser.json());
 io.on('connection' , (socket) => {
     console.log("접속 완료");
 
-    socket.on('roomjoin', (userId) => {
-        console.log(userId);
-        socket.join(userId);
-    });
+    // socket.on('roomjoin', (userId) => {
+    //     console.log(userId);
+    //     socket.join(userId);
+    // });
 
-    socket.on('alert', (toUserId) => {
-        io.to(toUserId).emit('sam', toUserId);
+    socket.on('alert', (msg) => {
+        console.log(msg);
+        io.emit('message', msg);
     })
 })
 
