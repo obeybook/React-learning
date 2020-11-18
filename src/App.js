@@ -1,14 +1,15 @@
-import React, { Component } from 'react';
-import Body from './components/body';
+import React from 'react';
+import { Provider } from 'react-redux';
+import store from './store';
 
-class App extends Component {
-  render() {
-    return (
-      <>
-        <Body />  
-      </>
-    );
-  }
-}
+import Main from './components/Main';
+
+const App = () => {
+  return (
+    <Provider store={store}>
+      <Main />
+    </Provider>
+  )
+};
 
 export default App;
