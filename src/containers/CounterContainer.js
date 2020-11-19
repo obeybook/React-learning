@@ -18,6 +18,7 @@ class CounterContainer extends Component {
     render() {
         const { handleIncrement, handleDecrement } = this;
         const { number } = this.props;
+        console.log(this.props);
     
         return (
             <Counter 

@@ -1,11 +1,11 @@
 import React from 'react';
 import CounterContainer from '../containers/CounterContainer';
+import TodoContainer from '../containers/TodoContainer';
 import AppTemplate from './AppTemplate.js';
-import Todos from './Todos';
 
 const Main = () => {
     return (
-        <AppTemplate counter={<CounterContainer />} todos={<Todos />} />
+        <AppTemplate counter={<CounterContainer />} todos={<TodoContainer />} />
     )
 }
 
