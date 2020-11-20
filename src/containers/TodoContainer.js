@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Todos from '../components/Todos';
 import { connect } from 'react-redux';
-import * as todoActions from '../store/modules/counter';
+import * as todoActions from '../store/modules/todo';
 import { bindActionCreators } from 'redux';
 
 class TodosContainer extends Component {
@@ -51,6 +51,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
     TodoActions: bindActionCreators(todoActions, dispatch)
+    
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(TodosContainer);
