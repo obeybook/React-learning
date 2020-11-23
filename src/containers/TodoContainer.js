@@ -8,6 +8,7 @@ class TodosContainer extends Component {
     handleChange = (e) => {
         const { TodoActions } = this.props;
         TodoActions.changeInput(e.target.value);
+        console.log(e.target);
     }
 
     handleInsert = () => {
@@ -26,9 +27,13 @@ class TodosContainer extends Component {
         TodoActions.remove(id);
     }
 
+    handleUpdate = (id) => {
+        const { TodoActions } = this.props;
+        TodoActions.update(id);
+    } 
+
     render() {
-        console.log(this.props);
-        const { handleChange, handleInsert, handleToggle, handleRemove } = this;
+        const { handleChange, handleInsert, handleToggle, handleRemove, handleUpdate } = this;
         const { input, todos } = this.props;
 
         return (
@@ -39,6 +44,7 @@ class TodosContainer extends Component {
                 onInsert={handleInsert}
                 onToggle={handleToggle}
                 onRemove={handleRemove}
+                onUpdate={handleUpdate}
             />
         );
     }
