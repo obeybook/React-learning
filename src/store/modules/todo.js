@@ -34,7 +34,7 @@ export default handleActions(
     {
         [CHANGE_INPUT]: (state, action) => state.set('insert', action.payload),
         [INSERT]: (state, { payload: text }) => { 
-            const item = Map({ id: id++, checked: false, text});
+            const item = Map({ id: id++, checked: false, text, update: text});
             return state.update('todos', todos => todos.push(item));
         },
         [TOGGLE]: (state, { payload: id }) => {
@@ -49,12 +49,9 @@ export default handleActions(
             const index = state.get('todos').findIndex(item => item.get('id') === id);
             return state.updateIn(['todos', index, 'updating'], updating => !updating);
         },
-        [MODIFY]: (state, action) => {
-            state.set('update', action.payload);
-        },
+        [MODIFY]: (state, action) => state.set('update', action.payload),
         [TOGGLE_TEXT]: (state, { payload: id }) => {
             const index = state.get('todos').findIndex(item => item.get('id') === id);
-            console.log(state.updateIn(['todos', index, 'text'], update => update));
             return state.updateIn(['todos', index, 'text'], text => text);
         }
     }, initialState);

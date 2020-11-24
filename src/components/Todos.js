@@ -13,7 +13,7 @@ const TodoItem = ({ id, update, text, checked, updating, onModify, onToggle, onR
         onClick={() => onToggle(id)}
         onDoubleClick={() => onRemove(id)}
     >
-        {text}
+        {update}
         <button onClick={() => onUpdate(id)}>수정</button>
     </li>
   );

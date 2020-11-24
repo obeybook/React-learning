@@ -40,6 +40,7 @@ class TodosContainer extends Component {
     render() {
         const { handleChange, handleInsert, handleToggle, handleRemove, handleUpdate, handleModify } = this;
         const { insert, todos, update } = this.props;
+        console.log(update);
 
         return (
             <Todos
