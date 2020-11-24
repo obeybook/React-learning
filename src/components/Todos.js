@@ -1,10 +1,10 @@
 import React from 'react';
 import { List, Map } from 'immutable';
 
-const TodoItem = ({ id, text, input, checked, updating, onChange, onToggle, onRemove, onUpdate }) => 
+const TodoItem = ({ id, update, text, checked, updating, onModify, onToggle, onRemove, onUpdate }) => 
   updating ? (
     <li>
-        <input value={input} name="update" onChange={onChange}/>
+        <input value={update} name="update" onModify={onModify}/>
         <button onClick={() => onUpdate(id)}>취소</button>
     </li>
   ) : (
@@ -18,17 +18,19 @@ const TodoItem = ({ id, text, input, checked, updating, onChange, onToggle, onRe
     </li>
   );
 
-const Todos = ({todos, input, onInsert, onToggle, onRemove, onChange, onUpdate }) => {
+const Todos = ({todos, insert, onInsert, onToggle, onRemove, onChange, onUpdate, onModify }) => {
   
     const todoItems = todos.map(
       todo => {
-        const { id, checked, text, updating } = todo.toJS();
+        const { id, checked, text, updating, update } = todo.toJS();
         return (
           <TodoItem
             id={id}
             checked={checked}
             text={text}
             updating={updating}
+            update={update}
+            onModify={onModify}
             onToggle={onToggle}
             onRemove={onRemove}
             onUpdate={onUpdate}
@@ -40,7 +42,7 @@ const Todos = ({todos, input, onInsert, onToggle, onRemove, onChange, onUpdate }
     return (
       <div>
         <h2>오늘 할 일</h2>
-        <input value={input} name="insert" onChange={onChange}/>
+        <input value={insert} name="insert" onChange={onChange}/>
         <button onClick={onInsert}>추가</button>
         <ul>
           { todoItems }

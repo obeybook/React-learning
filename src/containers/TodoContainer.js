@@ -8,12 +8,11 @@ class TodosContainer extends Component {
     handleChange = (e) => {
         const { TodoActions } = this.props;
         TodoActions.changeInput(e.target.value);
-        console.log(e.target);
     }
 
     handleInsert = () => {
-        const { input, TodoActions } = this.props;
-        TodoActions.insert(input);
+        const { insert, TodoActions } = this.props;
+        TodoActions.insert(insert);
         TodoActions.changeInput('');
     }
 
@@ -30,28 +29,37 @@ class TodosContainer extends Component {
     handleUpdate = (id) => {
         const { TodoActions } = this.props;
         TodoActions.update(id);
+        TodoActions.toggleText(id);
+    } 
+
+    handleModify = (e) => {
+        const { TodoActions } = this.props;
+        TodoActions.modify(e.target.value);
     } 
 
     render() {
-        const { handleChange, handleInsert, handleToggle, handleRemove, handleUpdate } = this;
-        const { input, todos } = this.props;
+        const { handleChange, handleInsert, handleToggle, handleRemove, handleUpdate, handleModify } = this;
+        const { insert, todos, update } = this.props;
 
         return (
             <Todos
-                input={input}
+                insert={insert}
                 todos={todos}
+                update={update}
                 onChange={handleChange}
                 onInsert={handleInsert}
                 onToggle={handleToggle}
                 onRemove={handleRemove}
                 onUpdate={handleUpdate}
+                onModify={handleModify}
             />
         );
     }
 }
 
 const mapStateToProps = (state) => ({
-    input: state.todo.get('input'),
+    insert: state.todo.get('insert'),
+    update: state.todo.get('update'),
     todos: state.todo.get('todos'),
 })
 
