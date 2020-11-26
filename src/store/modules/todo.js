@@ -9,6 +9,7 @@ const REMOVE = 'todo/REMOVE';
 const UPDATE = 'todo/UPDATE';
 const MODIFY = 'todo/MODIFY';
 const TOGGLE_TEXT = 'todo/TOGGLE_TEXT';
+const PUT = 'todo/PUT';
 
 // 액션 함수 생성
 export const changeInput = createAction(CHANGE_INPUT, value => value );
@@ -18,6 +19,7 @@ export const remove = createAction(REMOVE, id => id);
 export const update = createAction(UPDATE, id => id);
 export const toggleText = createAction(TOGGLE_TEXT, id => id);
 export const modify = createAction(MODIFY, value => value );
+export const put = createAction(PUT, id => id);
 
 let id = 0;
 
@@ -47,15 +49,20 @@ export default handleActions(
             const index = state.get('todos').findIndex(item => item.get('id') === id);
             return state.updateIn(['todos', index, 'updating'], updating => !updating);
         },
-        [MODIFY]: (state, action) => {
-            // const index = state.get('todos').findIndex(item => item.get('id') === id);
-            // return state.updateIn(['todos', index, 'update'], value => value);
-            state.set('update', action.payload);
+        [MODIFY]: (state, { payload: e }) => {
+            const index = state.get('todos').findIndex(item => item.get('id') === e.name);
+
+            return state.setIn(['todos', index, 'update'], e.target.value);
+            // state.set('put', action.payload);
         },
         [TOGGLE_TEXT]: (state, { payload: id }) => {
             const index = state.get('todos').findIndex(item => item.get('id') === id);
             const getValue = state.get('todos').find(item => item.get('id') === id);
-            console.log(state.get(id));
-            return state.setIn(['todos', index, 'update'], getValue);
+            return state.setIn(['todos', index, 'update'], getValue.get('text'));
+        },
+        [PUT]: (state, { payload: id }) => {
+            const index = state.get('todos').findIndex(item => item.get('id') === id);
+            const getValue = state.get('todos').find(item => item.get('id') === id);
+            return state.setIn(['todos', index, 'text'], getValue.get('update'));
         }
     }, initialState);

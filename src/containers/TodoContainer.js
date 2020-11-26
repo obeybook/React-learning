@@ -34,18 +34,24 @@ class TodosContainer extends Component {
 
     handleModify = (e) => {
         const { TodoActions } = this.props;
-        TodoActions.modify(e.target.value);
+        TodoActions.modify(e);
     } 
 
+    handlePut = (id) => {
+        const { TodoActions } = this.props;
+        TodoActions.put(id);
+        TodoActions.update(id);
+    }
+
     render() {
-        const { handleChange, handleInsert, handleToggle, handleRemove, handleUpdate, handleModify } = this;
+        const { handleChange, handleInsert, handleToggle, handleRemove, handleUpdate, handleModify, handlePut } = this;
         const { insert, todos } = this.props;
-        console.log(todos);
 
         return (
             <Todos
                 insert={insert}
                 todos={todos}
+                onPut={handlePut}
                 onChange={handleChange}
                 onInsert={handleInsert}
                 onToggle={handleToggle}

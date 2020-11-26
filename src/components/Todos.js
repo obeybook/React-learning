@@ -1,10 +1,11 @@
 import React from 'react';
 import { List, Map } from 'immutable';
 
-const TodoItem = ({ id, update, text, checked, updating, onModify, onToggle, onRemove, onUpdate }) => 
+const TodoItem = ({ id, update, text, checked, updating, onModify, onToggle, onPut, onRemove, onUpdate }) => 
   updating ? (
     <li>
-        <input value={update} name="update" onChange={onModify}/>
+        <input value={update} name="id" onChange={onModify}/>
+        <button onClick={() => onPut(id)}>수정</button>
         <button onClick={() => onUpdate(id)}>취소</button>
     </li>
   ) : (
@@ -18,7 +19,7 @@ const TodoItem = ({ id, update, text, checked, updating, onModify, onToggle, onR
     </li>
   );
 
-const Todos = ({todos, insert, onInsert, onToggle, onRemove, onChange, onUpdate, onModify }) => {
+const Todos = ({todos, insert, onInsert, onToggle, onRemove, onChange, onUpdate, onModify, onPut }) => {
   
     const todoItems = todos.map(
       todo => {
@@ -30,6 +31,7 @@ const Todos = ({todos, insert, onInsert, onToggle, onRemove, onChange, onUpdate,
             text={text}
             updating={updating}
             update={update}
+            onPut={onPut}
             onModify={onModify}
             onToggle={onToggle}
             onRemove={onRemove}
