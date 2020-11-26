@@ -28,8 +28,8 @@ class TodosContainer extends Component {
 
     handleUpdate = (id) => {
         const { TodoActions } = this.props;
-        TodoActions.update(id);
         TodoActions.toggleText(id);
+        TodoActions.update(id);
     } 
 
     handleModify = (e) => {
@@ -39,14 +39,13 @@ class TodosContainer extends Component {
 
     render() {
         const { handleChange, handleInsert, handleToggle, handleRemove, handleUpdate, handleModify } = this;
-        const { insert, todos, update } = this.props;
-        console.log(update);
+        const { insert, todos } = this.props;
+        console.log(todos);
 
         return (
             <Todos
                 insert={insert}
                 todos={todos}
-                update={update}
                 onChange={handleChange}
                 onInsert={handleInsert}
                 onToggle={handleToggle}
@@ -60,7 +59,6 @@ class TodosContainer extends Component {
 
 const mapStateToProps = (state) => ({
     insert: state.todo.get('insert'),
-    update: state.todo.get('update'),
     todos: state.todo.get('todos'),
 })
 

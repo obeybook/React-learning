@@ -17,14 +17,12 @@ export const toggle = createAction(TOGGLE, id => id);
 export const remove = createAction(REMOVE, id => id);
 export const update = createAction(UPDATE, id => id);
 export const toggleText = createAction(TOGGLE_TEXT, id => id);
-export const modify = createAction(MODIFY, value => value);
+export const modify = createAction(MODIFY, value => value );
 
 let id = 0;
 
 const initialState = Map({
-    updating: false,
     insert: '',
-    update: '',
     todos: List()
 });
 
@@ -34,24 +32,30 @@ export default handleActions(
     {
         [CHANGE_INPUT]: (state, action) => state.set('insert', action.payload),
         [INSERT]: (state, { payload: text }) => { 
-            const item = Map({ id: id++, checked: false, text, update: text});
+            const item = Map({ id: id++, checked: false, text, update: ''});
             return state.update('todos', todos => todos.push(item));
         },
         [TOGGLE]: (state, { payload: id }) => {
             const index = state.get('todos').findIndex(item => item.get('id') === id);
             return state.updateIn(['todos', index, 'checked'], checked => !checked);
         },
-        [REMOVE]: (state, { payload: id }) => {
-            const index = state.get('todos').findIndex(item => item.get('id') === id);
-            return state.deleteIn(['todos', index]);
-        },
+        // [REMOVE]: (state, { payload: id }) => {
+        //     const index = state.get('todos').findIndex(item => item.get('id') === id);
+        //     return state.deleteIn(['todos', index]);
+        // },
         [UPDATE]: (state, { payload: id }) => {
             const index = state.get('todos').findIndex(item => item.get('id') === id);
             return state.updateIn(['todos', index, 'updating'], updating => !updating);
         },
-        [MODIFY]: (state, action) => state.set('update', action.payload),
+        [MODIFY]: (state, action) => {
+            // const index = state.get('todos').findIndex(item => item.get('id') === id);
+            // return state.updateIn(['todos', index, 'update'], value => value);
+            state.set('update', action.payload);
+        },
         [TOGGLE_TEXT]: (state, { payload: id }) => {
             const index = state.get('todos').findIndex(item => item.get('id') === id);
-            return state.updateIn(['todos', index, 'text'], text => text);
+            const getValue = state.get('todos').find(item => item.get('id') === id);
+            console.log(state.get(id));
+            return state.setIn(['todos', index, 'update'], getValue);
         }
     }, initialState);

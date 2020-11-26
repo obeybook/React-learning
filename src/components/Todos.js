@@ -4,7 +4,7 @@ import { List, Map } from 'immutable';
 const TodoItem = ({ id, update, text, checked, updating, onModify, onToggle, onRemove, onUpdate }) => 
   updating ? (
     <li>
-        <input value={update} name="update" onModify={onModify}/>
+        <input value={update} name="update" onChange={onModify}/>
         <button onClick={() => onUpdate(id)}>취소</button>
     </li>
   ) : (
@@ -13,7 +13,7 @@ const TodoItem = ({ id, update, text, checked, updating, onModify, onToggle, onR
         onClick={() => onToggle(id)}
         onDoubleClick={() => onRemove(id)}
     >
-        {update}
+        {text}
         <button onClick={() => onUpdate(id)}>수정</button>
     </li>
   );
