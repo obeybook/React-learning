@@ -3,22 +3,20 @@ import Counter from '../components/Counter';
 import { connect } from 'react-redux';
 import * as counterActions from '../store/modules/counter';
 import { bindActionCreators } from 'redux';
+import { CounterActions } from '../store/actionCreator';
 
 class CounterContainer extends Component {
     handleIncrement = () => {
-        const { CounterActions } = this.props;
         CounterActions.increment();
     }
 
     handleDecrement = () => {
-        const { CounterActions } = this.props;
         CounterActions.decrement();
     }
 
     render() {
         const { handleIncrement, handleDecrement } = this;
         const { number } = this.props;
-        console.log(this.props);
     
         return (
             <Counter 
@@ -30,12 +28,8 @@ class CounterContainer extends Component {
     }
 }
 
-const mapStateToProps = (state) => ({
-    number: state.counter.number
-})
-
-const mapDispatchToProps = (dispatch) => ({
-    CounterActions: bindActionCreators(counterActions, dispatch)
-})
-
-export default connect(mapStateToProps, mapDispatchToProps)(CounterContainer);
+export default connect(
+    (state) => ({
+      number: state.counter.number
+    })
+  )(CounterContainer);
